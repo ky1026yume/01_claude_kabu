@@ -1,0 +1,79 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>過去のレポート一覧 — 経済ニュースまとめ</title>
+<style>
+  :root{
+    --bg:#0b0f16;
+    --bg-panel:#111826;
+    --border:#212938;
+    --border-soft:#1a2130;
+    --text:#e7ebf2;
+    --text-dim:#93a0b3;
+    --text-dim2:#69768a;
+    --amber:#f2a93b;
+    --teal:#5fd0c0;
+    --mono: ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans: -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.65;
+    padding:0 0 80px;
+  }
+  .page{max-width:760px;margin:0 auto;padding:36px 20px 0}
+  a{color:var(--teal)}
+  a:hover{color:var(--amber)}
+  .masthead{border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:28px}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber);
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  h1{font-size:26px;margin:0 0 6px;font-weight:700;letter-spacing:.01em}
+  .dateline{color:var(--text-dim);font-size:13px;font-family:var(--mono)}
+
+  ul.report-list{list-style:none;margin:0;padding:0}
+  li.report-row{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:12px;
+    padding:16px 18px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  }
+  li.report-row a{color:var(--text);font-size:15px;font-weight:600;text-decoration:none}
+  li.report-row a:hover{color:var(--amber)}
+  li.report-row .rep-date{font-family:var(--mono);font-size:12.5px;color:var(--text-dim2)}
+
+  .empty{color:var(--text-dim);font-size:14px}
+
+  .backlink{margin-top:28px}
+  .backlink a{font-family:var(--mono);font-size:12.5px;color:var(--text-dim)}
+  .backlink a:hover{color:var(--amber)}
+
+  footer.disclaimer{
+    margin-top:48px;padding:18px 20px;border:1px solid var(--border);border-radius:12px;
+    background:#0e1420;font-size:12.5px;color:var(--text-dim2);text-align:center;
+  }
+</style>
+
+<div class="page">
+  <div class="masthead">
+    <div class="eyebrow">Daily Market Wrap · 経済ニュース編集部</div>
+    <h1>過去のレポート一覧</h1>
+    <div class="dateline">docs/reports/economic-news/ に保存された全レポート（日付の新しい順）</div>
+  </div>
+
+  <ul class="report-list">
+    <li class="report-row">
+      <a href="reports/economic-news/2026-08-15.html">経済ニュースまとめ 2026-08-15</a>
+      <span class="rep-date">2026-08-15</span>
+    </li>
+  </ul>
+
+  <div class="backlink"><a href="index.html">← 最新レポートへ戻る</a></div>
+
+  <footer class="disclaimer">
+    本記事はAIが公開情報をもとに構成したものであり、投資助言・投資勧誘を目的とするものではありません。記載の数値・情報の正確性・完全性を保証するものではなく、投資判断は自己責任でお願いします。
+  </footer>
+</div>

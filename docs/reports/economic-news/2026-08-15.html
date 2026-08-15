@@ -1,0 +1,632 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>経済ニュースまとめ 2026-08-15</title>
+<style>
+  :root{
+    --bg:#0b0f16;
+    --bg-panel:#111826;
+    --bg-panel2:#0e1420;
+    --border:#212938;
+    --border-soft:#1a2130;
+    --text:#e7ebf2;
+    --text-dim:#93a0b3;
+    --text-dim2:#69768a;
+    --amber:#f2a93b;
+    --amber-soft:rgba(242,169,59,.14);
+    --amber-line:rgba(242,169,59,.4);
+    --teal:#5fd0c0;
+    --teal-soft:rgba(95,208,192,.14);
+    --teal-line:rgba(95,208,192,.4);
+    --mono: ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans: -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.65;
+    padding:0 0 80px;
+  }
+  .page{max-width:1080px;margin:0 auto;padding:36px 20px 0}
+  a{color:var(--teal)}
+  a:hover{color:var(--amber)}
+
+  /* ---------- Header ---------- */
+  .masthead{border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:28px}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber);
+    text-transform:uppercase;margin-bottom:8px;
+  }
+  h1{font-size:28px;margin:0 0 6px;font-weight:700;letter-spacing:.01em}
+  .dateline{color:var(--text-dim);font-size:14px;font-family:var(--mono)}
+
+  /* ---------- Headline strip ---------- */
+  .headline-strip{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+    background:var(--border);border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;margin:24px 0;
+  }
+  .hl-cell{background:var(--bg-panel);padding:16px 14px;min-width:0}
+  .hl-label{font-size:11px;color:var(--text-dim);font-family:var(--mono);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hl-value{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:-.01em}
+  .hl-delta{font-family:var(--mono);font-size:12.5px;margin-top:4px}
+  .up{color:var(--amber)}
+  .down{color:var(--teal)}
+  @media (max-width:760px){
+    .headline-strip{grid-template-columns:repeat(2,1fr)}
+  }
+
+  /* ---------- TL;DR ---------- */
+  .tldr{
+    background:linear-gradient(135deg,var(--amber-soft),transparent 60%),var(--bg-panel);
+    border:1px solid var(--amber-line);border-radius:var(--radius);
+    padding:20px 22px;margin:24px 0 36px;
+  }
+  .tldr h2{
+    font-family:var(--mono);font-size:13px;color:var(--amber);letter-spacing:.08em;
+    margin:0 0 12px;text-transform:uppercase;
+  }
+  .tldr ol{margin:0;padding-left:20px}
+  .tldr li{margin-bottom:8px;font-size:15px}
+  .tldr li:last-child{margin-bottom:0}
+
+  /* ---------- Section headers ---------- */
+  section.region{margin-top:56px}
+  .region-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;border-bottom:1px solid var(--border);padding-bottom:12px}
+  .region-tag{font-family:var(--mono);font-size:12px;color:var(--bg);background:var(--teal);padding:3px 9px;border-radius:5px;font-weight:700;letter-spacing:.04em}
+  .region-head h2{font-size:21px;margin:0}
+  h3.subhead{font-size:14px;color:var(--text-dim);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;margin:32px 0 14px}
+
+  /* ---------- Index cards w/ mini diverging bar ---------- */
+  .idx-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:8px}
+  .idx-card{background:var(--bg-panel);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+  .idx-name{font-size:13px;color:var(--text-dim);margin-bottom:6px}
+  .idx-value{font-family:var(--mono);font-size:24px;font-weight:700}
+  .idx-delta{font-family:var(--mono);font-size:13px;margin-top:3px}
+
+  .scale-note{font-family:var(--mono);font-size:11.5px;color:var(--text-dim2);margin:6px 0 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .swatch{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:8px;height:8px;border-radius:2px;display:inline-block}
+  .dot.amber{background:var(--amber)}
+  .dot.teal{background:var(--teal)}
+
+  .divbar{position:relative;height:9px;background:rgba(255,255,255,.05);border-radius:3px;margin-top:10px}
+  .divbar::before{content:'';position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:rgba(255,255,255,.22)}
+  .divbar .fill{position:absolute;top:0;bottom:0;border-radius:3px}
+  .divbar .fill.pos{left:50%;background:var(--amber)}
+  .divbar .fill.neg{right:50%;background:var(--teal)}
+  .ruler{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--text-dim2);margin-top:3px}
+
+  /* ---------- Flow diagram ---------- */
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:18px 0 8px}
+  .flow-step{
+    background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:10px;
+    padding:12px 14px;font-size:13.5px;max-width:230px;position:relative;
+  }
+  .flow-step .step-tag{font-family:var(--mono);font-size:10.5px;color:var(--teal);letter-spacing:.06em;display:block;margin-bottom:5px}
+  .flow-step.close{border-color:var(--amber-line);background:var(--amber-soft)}
+  .flow-step.close .step-tag{color:var(--amber)}
+  .flow-arrow{display:flex;align-items:center;justify-content:center;padding:0 8px;color:var(--text-dim2);font-size:16px;flex:0 0 auto}
+  @media (max-width:700px){
+    .flow{flex-direction:column}
+    .flow-arrow{transform:rotate(90deg);padding:4px 0}
+    .flow-step{max-width:none}
+  }
+
+  /* ---------- Stock cards ---------- */
+  .stock-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:8px}
+  .stock-card{background:var(--bg-panel);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+  .stock-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .stock-name{font-size:14.5px;font-weight:700}
+  .stock-ticker{font-family:var(--mono);font-size:11.5px;color:var(--text-dim);margin-top:2px}
+  .stock-chg{font-family:var(--mono);font-size:16px;font-weight:700;white-space:nowrap}
+  .tags{margin:10px 0 4px;display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-family:var(--mono);font-size:10.5px;padding:2px 8px;border-radius:20px;border:1px solid;letter-spacing:.02em}
+  .tag.earnings{color:var(--teal);border-color:var(--teal-line);background:var(--teal-soft)}
+  .tag.upgrade{color:var(--amber);border-color:var(--amber-line);background:var(--amber-soft)}
+  .tag.downgrade{color:#f2905e;border-color:rgba(242,144,94,.4);background:rgba(242,144,94,.12)}
+  .tag.dividend{color:#c9a6f2;border-color:rgba(201,166,242,.4);background:rgba(201,166,242,.12)}
+  .tag.index{color:#8fc7f2;border-color:rgba(143,199,242,.4);background:rgba(143,199,242,.12)}
+  .stock-note{font-size:13px;color:var(--text-dim);margin-top:8px}
+  .cap-note{font-size:10.5px;color:var(--text-dim2);margin-top:6px;font-family:var(--mono)}
+
+  /* ---------- Misc lists ---------- */
+  .minor-news{margin:10px 0 0;padding-left:0;list-style:none}
+  .minor-news li{
+    font-size:13.5px;color:var(--text-dim);padding:7px 0;border-top:1px solid var(--border-soft);
+  }
+  .minor-news li:first-child{border-top:none}
+  .minor-news a{color:var(--text)}
+  .minor-news a:hover{color:var(--amber)}
+
+  table.calendar{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 4px}
+  table.calendar th, table.calendar td{border-bottom:1px solid var(--border-soft);padding:9px 10px;text-align:left}
+  table.calendar th{font-family:var(--mono);font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+  table.calendar td.num{font-family:var(--mono)}
+  table.calendar tr:hover td{background:rgba(255,255,255,.02)}
+  .beat{color:var(--amber)}
+  .miss{color:var(--teal)}
+  .inline{color:var(--text-dim)}
+
+  .timeline{display:flex;flex-wrap:wrap;gap:0;margin:20px 0 8px}
+  .tl-item{
+    background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:10px;
+    padding:12px 14px;min-width:150px;flex:1 1 150px;
+  }
+  .tl-date{font-family:var(--mono);font-size:12px;color:var(--amber);margin-bottom:5px}
+  .tl-desc{font-size:13px}
+
+  .sources{margin-top:22px;padding-top:14px;border-top:1px dashed var(--border)}
+  .sources h4{font-family:var(--mono);font-size:11px;color:var(--text-dim2);text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px}
+  .sources ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
+  .sources li{font-size:12px;color:var(--text-dim);margin-bottom:6px;break-inside:avoid}
+  @media (max-width:700px){.sources ol{columns:1}}
+
+  footer.disclaimer{
+    margin-top:60px;padding:18px 20px;border:1px solid var(--border);border-radius:12px;
+    background:var(--bg-panel2);font-size:12.5px;color:var(--text-dim2);text-align:center;
+  }
+
+  .lede{color:var(--text-dim);font-size:13.5px;margin-bottom:4px}
+
+  .backlink{margin-top:28px}
+  .backlink a{font-family:var(--mono);font-size:12.5px;color:var(--text-dim)}
+  .backlink a:hover{color:var(--amber)}
+</style>
+
+<div class="page">
+
+  <div class="masthead">
+    <div class="eyebrow">Daily Market Wrap · 経済ニュース編集部</div>
+    <h1>経済ニュースまとめ</h1>
+    <div class="dateline">配信日 2026-08-15（土）&nbsp;/&nbsp; 対象営業日 2026年8月14日（金）※土日のため直近取引日を掲載</div>
+  </div>
+
+  <div class="headline-strip">
+    <div class="hl-cell">
+      <div class="hl-label">日経平均</div>
+      <div class="hl-value">68,713.80</div>
+      <div class="hl-delta up">▲405.21 (+0.59%)</div>
+    </div>
+    <div class="hl-cell">
+      <div class="hl-label">TOPIX</div>
+      <div class="hl-value">4,197.20</div>
+      <div class="hl-delta up">▲21.16 (+0.51%)</div>
+    </div>
+    <div class="hl-cell">
+      <div class="hl-label">NYダウ</div>
+      <div class="hl-value">53,732.41</div>
+      <div class="hl-delta down">▼107.58 (-0.20%)</div>
+    </div>
+    <div class="hl-cell">
+      <div class="hl-label">S&amp;P500</div>
+      <div class="hl-value">7,785.76</div>
+      <div class="hl-delta down">▼13.23 (-0.17%)</div>
+    </div>
+    <div class="hl-cell">
+      <div class="hl-label">ドル円</div>
+      <div class="hl-value">158.89円</div>
+      <div class="hl-delta inline" style="color:var(--text-dim)">レンジ 158.60-159.53円</div>
+    </div>
+  </div>
+
+  <div class="tldr">
+    <h2>TL;DR — 3行で今日</h2>
+    <ol>
+      <li>日経平均は4日続伸の68,713円、TOPIXは8日続伸で連日史上最高値を更新（4,197.20）。前日の米ハイテク株高とAI・半導体買いを受け一時69,608円まで上昇したが、後場は週末の持ち高調整で伸び悩んだ。</li>
+      <li>米国株は3指数そろって反落。7月小売売上高が前月比▲0.6%（予想+0.1%）、8月ミシガン大学消費者信頼感指数速報値が51.0（予想54.5）と主要指標が軒並み弱く、前日のS&amp;P500最高値更新の反動も重しとなった。</li>
+      <li>ドル円は弱い米指標で一時158.60円までドル売りが進んだが、ホルムズ海峡の供給混乱を背景にした原油高・米長期金利上昇でドルが買い戻され158円台後半で引けた。金・原油はともに中東リスクで反発。</li>
+    </ol>
+  </div>
+
+  <!-- ===================== ECONOMIC CALENDAR ===================== -->
+  <section>
+    <div class="region-head">
+      <span class="region-tag">CALENDAR</span>
+      <h2>経済指標カレンダー</h2>
+    </div>
+
+    <h3 class="subhead">直近の発表 — 実績 vs 市場予想</h3>
+    <table class="calendar">
+      <thead>
+        <tr><th>発表日</th><th>指標</th><th>結果</th><th>市場予想</th><th>前回</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">8/12(水)</td><td>米7月CPI（前年比）</td><td class="num inline">+3.4%</td><td class="num">+3.4%</td><td class="num">—</td></tr>
+        <tr><td class="num">8/12(水)</td><td>米7月CPI（前月比）</td><td class="num inline">+0.1%</td><td class="num">+0.1%</td><td class="num">—</td></tr>
+        <tr><td class="num">8/12(水)</td><td>米7月コアCPI（前年比）</td><td class="num inline">+2.5%</td><td class="num">+2.5%</td><td class="num">—</td></tr>
+        <tr><td class="num">8/13(木)</td><td>米7月PPI（前月比）</td><td class="num beat">0.0%</td><td class="num">+0.2%</td><td class="num">—</td></tr>
+        <tr><td class="num">8/13(木)</td><td>米7月PPI（前年比）</td><td class="num beat">+4.7%</td><td class="num">+4.9%</td><td class="num">—</td></tr>
+        <tr><td class="num">8/13(木)</td><td>米7月コアPPI（前月比）</td><td class="num beat">+0.2%</td><td class="num">+0.3%</td><td class="num">—</td></tr>
+        <tr><td class="num">8/14(金)</td><td>米7月小売売上高（前月比）</td><td class="num miss">▲0.6%</td><td class="num">+0.1%</td><td class="num">—</td></tr>
+        <tr><td class="num">8/14(金)</td><td>米8月ミシガン大学消費者信頼感指数（速報）</td><td class="num miss">51.0</td><td class="num">54.5</td><td class="num">55.2</td></tr>
+      </tbody>
+    </table>
+    <div class="scale-note"><span class="swatch"><span class="dot amber"></span>予想上振れ／改善</span><span class="swatch"><span class="dot teal"></span>予想下振れ／悪化</span></div>
+
+    <h3 class="subhead">今後の予定</h3>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-date">8/17(月)</div><div class="tl-desc">日本 4-6月期GDP1次速報。民間予測は前期比年率+2.0〜2.9%程度と3四半期連続のプラス成長を予想</div></div>
+      <div class="tl-item"><div class="tl-date">8/18(火)</div><div class="tl-desc">レディット（RDDT）がS&amp;P500種指数の構成銘柄に採用（AvalonBay Communitiesと入替）</div></div>
+      <div class="tl-item"><div class="tl-date">9月中旬</div><div class="tl-desc">米8月CPI発表予定</div></div>
+      <div class="tl-item"><div class="tl-date">9/15-16(火・水)</div><div class="tl-desc">FOMC（米連邦公開市場委員会）。経済見通し（SEP）も公表</div></div>
+      <div class="tl-item"><div class="tl-date">9/17-18(木・金)</div><div class="tl-desc">日銀金融政策決定会合。市場では9月の追加利上げ観測がくすぶる</div></div>
+    </div>
+  </section>
+
+  <!-- ===================== JAPAN ===================== -->
+  <section class="region">
+    <div class="region-head">
+      <span class="region-tag">JP</span>
+      <h2>日本編</h2>
+    </div>
+
+    <div class="scale-note"><span>指数は<strong>±3%</strong>目盛りのダイバージング棒グラフ</span><span class="swatch"><span class="dot amber"></span>上昇</span><span class="swatch"><span class="dot teal"></span>下落</span></div>
+    <div class="idx-row">
+      <div class="idx-card">
+        <div class="idx-name">日経平均株価（4日続伸）</div>
+        <div class="idx-value">68,713.80</div>
+        <div class="idx-delta up">+405.21円 (+0.59%)</div>
+        <div class="divbar"><div class="fill pos" style="width:9.8%"></div></div>
+        <div class="ruler"><span>-3%</span><span>0</span><span>+3%</span></div>
+      </div>
+      <div class="idx-card">
+        <div class="idx-name">TOPIX（8日続伸・連日史上最高値更新）</div>
+        <div class="idx-value">4,197.20</div>
+        <div class="idx-delta up">+21.16 (+0.51%)</div>
+        <div class="divbar"><div class="fill pos" style="width:8.5%"></div></div>
+        <div class="ruler"><span>-3%</span><span>0</span><span>+3%</span></div>
+      </div>
+    </div>
+
+    <h3 class="subhead">値動きの背景</h3>
+    <div class="flow">
+      <div class="flow-step"><span class="step-tag">STEP 1</span>前日の米国株高（7月PPIが前月比横ばいで市場予想を下回りインフレ懸念後退）を受け、502円高の68,811円でスタート</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 2</span>AI・半導体関連株に買いが先行。前場中に69,608円まで上昇し、約1カ月ぶりに69,000円台を回復</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 3</span>前引けは580円高の68,889円。韓国KOSPIも半導体・メモリー株高で2%超上昇し、アジア株全体を下支え</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 4</span>後場は週末の持ち高調整売りが優勢となり伸び悩む。アシックス決算を受けた個別物色も相場全体のテーマにはならず</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 5</span>日銀の9月追加利上げ観測がくすぶり、高値圏での上値の重さが意識される</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step close"><span class="step-tag">CLOSE</span>405.21円高の68,713.80円で4営業日続伸。TOPIXは8日続伸・4,197.20で連日史上最高値を更新</div>
+    </div>
+
+    <h3 class="subhead">個別株動向</h3>
+    <div class="scale-note"><span>個別株は<strong>±12%</strong>目盛り。上限を超える変動幅はバーを上限で表示し、実際の騰落率は数値表記</span></div>
+    <div class="stock-grid">
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">アシックス</div><div class="stock-ticker">7936 東証プライム</div></div>
+          <div class="stock-chg up">+12%</div>
+        </div>
+        <div class="tags"><span class="tag earnings">決算</span><span class="tag dividend">増配</span></div>
+        <div class="divbar"><div class="fill pos" style="width:50%"></div></div>
+        <div class="stock-note">26年12月期の連結経常利益予想を1650億円→1890億円へ14.5%上方修正し過去最高益を上乗せ。売上高は初の1兆円台を見込み、年間配当も38円→44円に増額。一時前日比12%高まで買われた。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">メドレー</div><div class="stock-ticker">4480 東証プライム</div></div>
+          <div class="stock-chg up">+22.97%</div>
+        </div>
+        <div class="tags"><span class="tag earnings">決算</span><span class="tag dividend">初配当</span></div>
+        <div class="divbar"><div class="fill pos" style="width:50%"></div></div>
+        <div class="stock-note">6月中間期の営業利益が前年同期比67.4%増。初配当の実施を発表しストップ高、東証プライム値上がり率トップとなった。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">ネクソン</div><div class="stock-ticker">3659 東証プライム</div></div>
+          <div class="stock-chg up">+19.85%</div>
+        </div>
+        <div class="tags"><span class="tag dividend">特別配当</span></div>
+        <div class="divbar"><div class="fill pos" style="width:50%"></div></div>
+        <div class="stock-note">大幅な特別配当の実施を発表しストップ高。サプライズとして受け止められ買いを集めた。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">オリジン</div><div class="stock-ticker">6513 東証グロース</div></div>
+          <div class="stock-chg up">+27.9%</div>
+        </div>
+        <div class="tags"><span class="tag earnings">決算</span></div>
+        <div class="divbar"><div class="fill pos" style="width:50%"></div></div>
+        <div class="stock-note">4-6月期に営業黒字へ転換し、通期計画を超過する進捗を好感した買いが入りストップ高。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">アドバンテスト</div><div class="stock-ticker">6857 東証プライム</div></div>
+          <div class="stock-chg up">+7.76%</div>
+        </div>
+        <div class="tags"><span class="tag upgrade">格上げ</span></div>
+        <div class="divbar"><div class="fill pos" style="width:32.3%"></div></div>
+        <div class="stock-note">連日で上場来高値を更新。証券各社が目標株価を引き上げ、AI・半導体投資の再拡大期待が強まった。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">テスホールディングス</div><div class="stock-ticker">5074 東証プライム</div></div>
+          <div class="stock-chg down">-18.77%</div>
+        </div>
+        <div class="tags"><span class="tag downgrade">下方修正</span><span class="tag earnings">決算</span></div>
+        <div class="divbar"><div class="fill neg" style="width:50%"></div></div>
+        <div class="stock-note">2027年3月期予想は増収ながら営業利益12%減の計画。人件費や研究開発費の増加が重荷となり、ストップ安圏まで急落した。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">トレンドマイクロ</div><div class="stock-ticker">4704 東証プライム</div></div>
+          <div class="stock-chg down">-14.59%</div>
+        </div>
+        <div class="tags"><span class="tag downgrade">下方修正</span><span class="tag earnings">決算</span></div>
+        <div class="divbar"><div class="fill neg" style="width:50%"></div></div>
+        <div class="stock-note">通期経常利益予想を551億円から460億円へ16.5%下方修正し一転15%前後の減益見通しに。4-6月期の売上営業利益率が20.3%→8.3%へ急低下したことも嫌気され、ストップ安圏まで売られた。</div>
+      </div>
+
+    </div>
+
+    <h3 class="subhead">その他の注目ニュース</h3>
+    <ul class="minor-news">
+      <li>韓国KOSPIは+2.41%高の6,977.34で連動高。SKハイニックスは寄り付き+6.03%、キオクシアは+7.20%高と半導体・メモリー株が牽引 — <a href="https://www.tradingkey.com/jp/analysis/stocks/more/262104038-japan-south-korea-stocks-kospi-nikkei-softbank-sk-hynix-samsung-kioxia-tradingkey" target="_blank" rel="noopener">TradingKey</a></li>
+      <li>ゴールドクレスト（8871）は日興証券が投資判断を「弱気」から「中立」に引き上げ、目標株価も3,300円→3,400円に — <a href="https://finance.yahoo.co.jp/news/detail/aae5eaa0b693b30e4df3e93026f280cb5bb30097" target="_blank" rel="noopener">株探（Yahoo!ファイナンス）</a></li>
+      <li>Appier（4180）は会社計画超過で通期業績予想を上方修正しストップ高 — <a href="https://finance.yahoo.co.jp/news/detail/262bbb8e2fdb21c97c9ccd1e6213cdad3f738010" target="_blank" rel="noopener">株探（Yahoo!ファイナンス）</a></li>
+      <li>JSH（150A）は上限100万株の自社株買いと配当予想の増額修正を好感しストップ高 — <a href="https://finance.yahoo.co.jp/news/detail/262bbb8e2fdb21c97c9ccd1e6213cdad3f738010" target="_blank" rel="noopener">株探（Yahoo!ファイナンス）</a></li>
+      <li>東京プライム市場は値上がり銘柄72.2%、値下がり銘柄25.7%と全体では上昇優勢 — <a href="https://s.kabutan.jp/news/n202608141095/" target="_blank" rel="noopener">株探</a></li>
+    </ul>
+
+    <div class="sources">
+      <h4>Sources</h4>
+      <ol>
+        <li><a href="https://www.zaikei.co.jp/article/20260814/865841.html" target="_blank" rel="noopener">日経平均大引け：前日比405.21円高の68713.80円（財経新聞）</a></li>
+        <li><a href="https://news.infoseek.co.jp/article/yomiuri_20260814_gyt1t00189/" target="_blank" rel="noopener">日経平均終値、405円高の68713円…4営業日連続で上昇（読売新聞/Infoseek）</a></li>
+        <li><a href="https://www.zaikei.co.jp/article/20260814/865854.html" target="_blank" rel="noopener">週末の持ち高調整などで重い展開【クロージング】（財経新聞）</a></li>
+        <li><a href="https://stock.f-frontier.com/2026/08/14/234647/" target="_blank" rel="noopener">2026年8月14日のマーケット情報 TOPIX 4,197.20（株式ちゃんねる）</a></li>
+        <li><a href="https://news.yahoo.co.jp/articles/13ae30aad89aec823be05ed5a0f55b84a4a8c356" target="_blank" rel="noopener">TOPIX、取引時間中の史上最高値上回る＝東京株式市場（時事通信/Yahoo!ニュース）</a></li>
+        <li><a href="https://zai.diamond.jp/articles/-/493936" target="_blank" rel="noopener">日経平均寄り付き：前日比502.58円高の68811.17円（ザイFX！）</a></li>
+        <li><a href="https://www.tradingkey.com/jp/analysis/stocks/more/262104919-japan-south-korea-stocks-kospi-nikkei-softbank-sk-hynix-samsung-kioxia-tradingkey" target="_blank" rel="noopener">日韓株が金曜日に上昇；Kospiは2%超高（TradingKey）</a></li>
+        <li><a href="https://s.kabutan.jp/news/k202608140043/" target="_blank" rel="noopener">アシックス、今期経常を15％上方修正・最高益予想を上乗せ、配当も6円増額（株探）</a></li>
+        <li><a href="https://www.seventietwo.com/ja/business/Asics_2026q2_20260814" target="_blank" rel="noopener">アシックスが売上高1兆円、純利益1000億円の大台突破 株価は一時12%高（セブンティトゥー）</a></li>
+        <li><a href="https://gentosha-go.com/articles/-/80952" target="_blank" rel="noopener">「初配当」実施＆営業利益67.4%増でストップ高…東証プライム上昇率トップ（THE GOLD ONLINE）</a></li>
+        <li><a href="https://finance.yahoo.co.jp/news/detail/262bbb8e2fdb21c97c9ccd1e6213cdad3f738010" target="_blank" rel="noopener">本日の【ストップ高／ストップ安】(8月14日)（株探/Yahoo!ファイナンス）</a></li>
+        <li><a href="https://finance.yahoo.co.jp/news/detail/aae5eaa0b693b30e4df3e93026f280cb5bb30097" target="_blank" rel="noopener">レーティング日報【格上げ↑】(8月14日)（株探/Yahoo!ファイナンス）</a></li>
+        <li><a href="https://kabutan.jp/news/?b=k202608130101" target="_blank" rel="noopener">トレンドマイクロ【4704】、今期経常を一転15%減益に下方修正（株探）</a></li>
+        <li><a href="https://s.kabutan.jp/news/n202608141095/" target="_blank" rel="noopener">本日のランキング【値上がり率】(8月14日)（株探）</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== US ===================== -->
+  <section class="region">
+    <div class="region-head">
+      <span class="region-tag">US</span>
+      <h2>米国編</h2>
+    </div>
+
+    <div class="scale-note"><span>指数は<strong>±3%</strong>目盛りのダイバージング棒グラフ</span><span class="swatch"><span class="dot amber"></span>上昇</span><span class="swatch"><span class="dot teal"></span>下落</span></div>
+    <div class="idx-row">
+      <div class="idx-card">
+        <div class="idx-name">NYダウ工業株30種</div>
+        <div class="idx-value">53,732.41</div>
+        <div class="idx-delta down">-107.58 (-0.20%)</div>
+        <div class="divbar"><div class="fill neg" style="width:3.3%"></div></div>
+        <div class="ruler"><span>-3%</span><span>0</span><span>+3%</span></div>
+      </div>
+      <div class="idx-card">
+        <div class="idx-name">S&amp;P500（前日に最高値更新）</div>
+        <div class="idx-value">7,785.76</div>
+        <div class="idx-delta down">-13.23 (-0.17%)</div>
+        <div class="divbar"><div class="fill neg" style="width:2.8%"></div></div>
+        <div class="ruler"><span>-3%</span><span>0</span><span>+3%</span></div>
+      </div>
+      <div class="idx-card">
+        <div class="idx-name">ナスダック総合</div>
+        <div class="idx-value">26,729.16</div>
+        <div class="idx-delta down">-73.86 (-0.28%)</div>
+        <div class="divbar"><div class="fill neg" style="width:4.7%"></div></div>
+        <div class="ruler"><span>-3%</span><span>0</span><span>+3%</span></div>
+      </div>
+    </div>
+
+    <h3 class="subhead">値動きの背景</h3>
+    <div class="flow">
+      <div class="flow-step"><span class="step-tag">STEP 1</span>前日(13日)発表の7月PPIが前月比0.0%と予想(+0.2%)を下回りインフレ鈍化を好感、ハイテク株中心に上昇して取引開始</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 2</span>寄り前に7月小売売上高が前月比▲0.6%（予想+0.1%）と発表。約1年ぶりの大幅減でドル売りが先行</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 3</span>午前10時、8月ミシガン大学消費者信頼感指数速報値が51.0（予想54.5、7月55.2）に低下し3カ月ぶりの悪化。ダウは+18.95ドルでもみ合い</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 4</span>弱い指標で10年債利回りが上昇に転じたことが嫌気され、S&amp;P500は午前中に売りに転換。午後2時前には-0.29%まで下落幅拡大</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 5</span>前日にS&amp;P500が最高値を更新した反動で高値警戒売りが広がり、イラン制裁強化観測など中東情勢の不透明感も相場の重し</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step close"><span class="step-tag">CLOSE</span>ダウ-107.58ドル、S&amp;P500-13.23、ナスダック-73.86と3指数そろって反落</div>
+    </div>
+
+    <h3 class="subhead">個別株動向</h3>
+    <div class="scale-note"><span>個別株は<strong>±12%</strong>目盛り。上限を超える変動幅はバーを上限で表示し、実際の騰落率は数値表記</span></div>
+    <div class="stock-grid">
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">レディット</div><div class="stock-ticker">RDDT NYSE</div></div>
+          <div class="stock-chg up">+10.4%</div>
+        </div>
+        <div class="tags"><span class="tag index">指数採用</span></div>
+        <div class="divbar"><div class="fill pos" style="width:43.3%"></div></div>
+        <div class="stock-note">8月18日付でS&amp;P500種指数の構成銘柄に採用されると発表。AvalonBay Communitiesと入れ替え、指数連動ファンドの組み入れ買い期待から急伸した。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">サンディスク</div><div class="stock-ticker">SNDK NASDAQ</div></div>
+          <div class="stock-chg up">+7%超</div>
+        </div>
+        <div class="tags"><span class="tag earnings">決算</span></div>
+        <div class="divbar"><div class="fill pos" style="width:29.2%"></div></div>
+        <div class="stock-note">2026年Investor Dayで経営陣が強気の長期業績見通しを提示。半導体・メモリー関連セクター全体への買いにもつながった。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">アプライド・マテリアルズ</div><div class="stock-ticker">AMAT NASDAQ</div></div>
+          <div class="stock-chg down">-5.1%</div>
+        </div>
+        <div class="tags"><span class="tag earnings">決算</span></div>
+        <div class="divbar"><div class="fill neg" style="width:21.3%"></div></div>
+        <div class="stock-note">507.18ドルまで下落。四半期決算・見通しは市場予想を上回ったとされるが、年初来110%超の急騰で膨らんだ期待に届かず「材料出尽くし」で売られた。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">グロバント</div><div class="stock-ticker">GLOB NYSE</div></div>
+          <div class="stock-chg down">-12.6%</div>
+        </div>
+        <div class="tags"><span class="tag earnings">決算</span></div>
+        <div class="divbar"><div class="fill neg" style="width:50%"></div></div>
+        <div class="stock-note">IT・ソフトウエア開発大手の4-6月期決算が市場予想に届かず失望売りが広がった。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-top">
+          <div><div class="stock-name">レンジ・リソーシズ</div><div class="stock-ticker">RRC NYSE</div></div>
+          <div class="stock-chg down">-7.3%</div>
+        </div>
+        <div class="tags"><span class="tag downgrade">商品安</span></div>
+        <div class="divbar"><div class="fill neg" style="width:30.4%"></div></div>
+        <div class="stock-note">天然ガス価格の下落が続いていることが重荷となり売られた。</div>
+      </div>
+
+    </div>
+
+    <h3 class="subhead">その他の注目ニュース</h3>
+    <ul class="minor-news">
+      <li>ダウ構成銘柄では、ウォルト・ディズニー(+2.05%)、シェブロン(+1.16%)、ユナイテッドヘルス(+0.61%)が上昇上位、セールスフォース(-2.25%)、シスコシステムズ(-1.67%)、アムジェン(-1.28%)が下落上位 — <a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-14-2026" target="_blank" rel="noopener">TheStreet</a></li>
+      <li>前日(13日)にネットフリックスが著名投資家ビル・アックマン氏率いるパーシング・スクエアの新規組み入れ発表を受け上昇 — <a href="https://note.com/butamarukabu/n/n290718ce1fa4" target="_blank" rel="noopener">note（ぶたまる）</a></li>
+      <li>ラッセル2000は週末にかけて連日で史上最高値を更新 — <a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-14-2026" target="_blank" rel="noopener">TheStreet</a></li>
+    </ul>
+
+    <div class="sources">
+      <h4>Sources</h4>
+      <ol>
+        <li><a href="https://s.kabutan.jp/news/n202608150262/" target="_blank" rel="noopener">米国市場データ NYダウは107ドル安と反落（株探）</a></li>
+        <li><a href="https://www.nikkei.com/article/DGXZQOFL1500K0V10C26A8000000/" target="_blank" rel="noopener">NYダウ、反落し107ドル安 低調な経済指標や中東の不透明感で（日本経済新聞）</a></li>
+        <li><a href="https://news.yahoo.co.jp/articles/059802d4cb934ad2eefca893aa6c4b34f2640fc9" target="_blank" rel="noopener">NY株式 14日終値（共同通信/Yahoo!ニュース）</a></li>
+        <li><a href="https://www.businessinsider.jp/article/2608-14-todays-sp500-and-msci-acwi/" target="_blank" rel="noopener">S&amp;P500・オルカン 最新情報。14日は最高値更新後に反落（Business Insider Japan）</a></li>
+        <li><a href="https://www.zaikei.co.jp/article/20260814/865892.html" target="_blank" rel="noopener">【市場反応】米7月小売売上高は予想外のマイナス1年ぶり低水準（財経新聞）</a></li>
+        <li><a href="https://finance.biggo.jp/news/d96e4189-106c-48c0-a883-20099a6416b3" target="_blank" rel="noopener">米消費者信頼感8月は51.0に急低下、1年先インフレ期待は4.3%に上昇（BigGoファイナンス）</a></li>
+        <li><a href="https://finance.yahoo.co.jp/news/detail/20260814-00000259-jijf-market" target="_blank" rel="noopener">〔米株式〕ダウもみ合い、18ドル高＝ナスダックも小動き（14日午前）（時事通信/Yahoo!ファイナンス）</a></li>
+        <li><a href="https://www.bloomberg.com/jp/news/articles/2026-08-14/TJRMOUKJH6VE00" target="_blank" rel="noopener">米国株は下落、個人消費に減速の兆し－短期債アウトパフォーム（Bloomberg）</a></li>
+        <li><a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-14-2026" target="_blank" rel="noopener">Stock Market Today (Aug. 14, 2026)（TheStreet）</a></li>
+        <li><a href="https://www.tradingkey.com/jp/analysis/stocks/us-stocks/262107917-us-stock-pre-market-retail-sales-amat-falls-5-sndk-rises-7-tradingkey" target="_blank" rel="noopener">【米国株寄り前】アプライド・マテリアルズが5%超下落、サンディスクは7%超上昇（TradingKey）</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== OTHERS: EUROPE / FX / COMMODITIES ===================== -->
+  <section class="region">
+    <div class="region-head">
+      <span class="region-tag">OTHERS</span>
+      <h2>その他（欧州・為替・コモディティ）</h2>
+    </div>
+
+    <div class="scale-note"><span>指数は<strong>±3%</strong>目盛りのダイバージング棒グラフ</span><span class="swatch"><span class="dot amber"></span>上昇</span><span class="swatch"><span class="dot teal"></span>下落</span></div>
+    <div class="idx-row">
+      <div class="idx-card">
+        <div class="idx-name">独DAX</div>
+        <div class="idx-value">26,440.31</div>
+        <div class="idx-delta up">+140.57 (+0.53%)</div>
+        <div class="divbar"><div class="fill pos" style="width:8.8%"></div></div>
+        <div class="ruler"><span>-3%</span><span>0</span><span>+3%</span></div>
+      </div>
+      <div class="idx-card">
+        <div class="idx-name">仏CAC40</div>
+        <div class="idx-value">8,636.80</div>
+        <div class="idx-delta down">-13.76 (-0.16%)</div>
+        <div class="divbar"><div class="fill neg" style="width:2.7%"></div></div>
+        <div class="ruler"><span>-3%</span><span>0</span><span>+3%</span></div>
+      </div>
+      <div class="idx-card">
+        <div class="idx-name">英FTSE100（5日続落）</div>
+        <div class="idx-value">10,750.11</div>
+        <div class="idx-delta down">-22.56 (-0.21%)</div>
+        <div class="divbar"><div class="fill neg" style="width:3.5%"></div></div>
+        <div class="ruler"><span>-3%</span><span>0</span><span>+3%</span></div>
+      </div>
+    </div>
+
+    <h3 class="subhead">値動きの背景 — 欧州株</h3>
+    <div class="flow">
+      <div class="flow-step"><span class="step-tag">STEP 1</span>独DAXはソフトウェア・防衛関連株の買いが優勢となり上昇して開始</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 2</span>英FTSE100は資源（鉱業）株の下落が指数の重しとなり軟調に推移、5営業日続落</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 3</span>仏CAC40は小幅安で方向感に乏しい展開</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step close"><span class="step-tag">CLOSE</span>欧州主要3指数は「まちまち」。DAXのみプラス圏を維持し独歩高となった</div>
+    </div>
+
+    <h3 class="subhead">値動きの背景 — ドル円</h3>
+    <div class="flow">
+      <div class="flow-step"><span class="step-tag">STEP 1</span>東京市場は159円台で小幅安の展開</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 2</span>NY時間、弱い7月小売売上高・8月ミシガン大指数を受け早期利上げ観測が後退しドル売りが加速、一時158円60銭まで下落</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="step-tag">STEP 3</span>ホルムズ海峡を巡る供給混乱の持続で原油価格・米長期金利が上昇し、これに連れてドルが一部買い戻される</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step close"><span class="step-tag">CLOSE</span>158円89銭で引け。日中レンジは158.60-159.53円</div>
+    </div>
+
+    <h3 class="subhead">コモディティ</h3>
+    <div class="idx-row">
+      <div class="idx-card">
+        <div class="idx-name">NY金（COMEX 12月限）</div>
+        <div class="idx-value">4,437.3ドル</div>
+        <div class="idx-delta up">+16.9ドル</div>
+      </div>
+      <div class="idx-card">
+        <div class="idx-name">WTI原油（NYMEX 9月限）</div>
+        <div class="idx-value">82.32ドル</div>
+        <div class="idx-delta up">+1.07ドル (+1.32%)</div>
+      </div>
+    </div>
+    <p class="lede" style="margin-top:14px">中東情勢を背景にしたホルムズ海峡の供給混乱長期化への懸念で原油相場は反発。金は米早期利上げ観測の後退でドル建ての割安感が意識され買いが入った。</p>
+
+    <h3 class="subhead">その他の注目ニュース</h3>
+    <ul class="minor-news">
+      <li>ユーロは対ドルで底堅く推移 — <a href="https://www.bbntimes.com/companies/germany-s-dax-40-jumps-to-26-440-31-bucking-europe-s-cautious-mood" target="_blank" rel="noopener">BBN Times</a></li>
+      <li>WTIは2営業日続落の後に反発。米国の原油在庫増加・需要減速見通しは引き続き上値を抑える要因 — <a href="https://www.oanda.jp/lab-education/market_news/2026_08_14_wtioil/" target="_blank" rel="noopener">OANDA</a></li>
+    </ul>
+
+    <div class="sources">
+      <h4>Sources</h4>
+      <ol>
+        <li><a href="https://www.bbntimes.com/companies/germany-s-dax-40-jumps-to-26-440-31-bucking-europe-s-cautious-mood" target="_blank" rel="noopener">Germany's DAX 40 Jumps to 26,440.31（BBN Times）</a></li>
+        <li><a href="https://www.bbntimes.com/financial/ftse-100-today-index-falls-to-10-750-11-as-mining-stocks-drag-blue-chips-lower-for-a-fifth-session" target="_blank" rel="noopener">FTSE 100 Today: Index Falls to 10,750.11（BBN Times）</a></li>
+        <li><a href="https://zai.diamond.jp/articles/-/493963" target="_blank" rel="noopener">欧州主要株価指数一覧（ザイFX！）</a></li>
+        <li><a href="https://www.stl.news/overseas-stock-market-update-august-14-2026/" target="_blank" rel="noopener">Overseas Stock Market Update — August 14, 2026（STL.News）</a></li>
+        <li><a href="https://fx.minkabu.jp/news/376198" target="_blank" rel="noopener">14日の為替市場の四本値（ドル円・ユーロドル・ユーロ円）（みんかぶFX/為替）</a></li>
+        <li><a href="https://www.zaikei.co.jp/article/20260815/865897.html" target="_blank" rel="noopener">8月14日のNY為替概況（財経新聞）</a></li>
+        <li><a href="https://www.zaikei.co.jp/article/20260814/865810.html" target="_blank" rel="noopener">東京為替：ドル・円は変わらず、様子見ムードで（財経新聞）</a></li>
+        <li><a href="https://www.zaikei.co.jp/article/20260815/865904.html" target="_blank" rel="noopener">NY原油先物：反発、中東情勢の緊張継続で供給懸念が下支え（財経新聞）</a></li>
+        <li><a href="https://www.tradingkey.com/news/market-movers/262104960-market-movers-usoil-20260814" target="_blank" rel="noopener">WTI (USOIL) は8月14日に上昇（TradingKey）</a></li>
+        <li><a href="https://finance.yahoo.co.jp/news/detail/28b0cd381e32fcb42822511b89d27eaa6d3498ff" target="_blank" rel="noopener">NY原油・金相場（14日）－原油、金がともに反発（トレーダーズ・ウェブ/Yahoo!ファイナンス）</a></li>
+        <li><a href="https://www.oanda.jp/lab-education/market_news/2026_08_14_wtioil/" target="_blank" rel="noopener">WTI原油見通し：原油在庫増加や需要減少見通しで2営業日連続下落（OANDA）</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="backlink"><a href="../../archive.html">← 過去のレポート一覧</a></div>
+
+  <footer class="disclaimer">
+    本記事はAIが公開情報をもとに構成したものであり、投資助言・投資勧誘を目的とするものではありません。記載の数値・情報の正確性・完全性を保証するものではなく、投資判断は自己責任でお願いします。
+  </footer>
+
+</div>
